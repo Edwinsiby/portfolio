@@ -1,0 +1,382 @@
+// app/page.tsx
+"use client";
+import Head from "next/head";
+import { useEffect, useState, useRef } from "react";
+import { motion } from "framer-motion";
+import { Github, Linkedin, Mail, Camera, Sun, Moon } from "lucide-react";
+
+/**
+ * Single-file portfolio page (developer-focused).
+ * Requirements:
+ *  - Put profile photo at: public/profile.jpg
+ *  - Put resume PDF at: public/resume.pdf
+ *
+ * This is a Client-rendered page (all interactive features run on client).
+ * It uses a tiny custom theme toggle (no next-themes) which sets a 'dark' class
+ * on document.documentElement and persists choice in localStorage.
+ */
+
+export default function Page() {
+  // Theme
+  const [theme, setTheme] = useState<"dark" | "light">("dark");
+
+  useEffect(() => {
+    // initialize theme from localStorage or system preference
+    const stored = typeof window !== "undefined" ? localStorage.getItem("theme") : null;
+    if (stored === "light" || stored === "dark") {
+      setTheme(stored);
+      applyTheme(stored);
+    } else {
+      const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+      const initial = prefersDark ? "dark" : "light";
+      setTheme(initial);
+      applyTheme(initial);
+    }
+  }, []);
+
+  function applyTheme(t: "dark" | "light") {
+    const root = document.documentElement;
+    if (t === "dark") {
+      root.classList.add("dark");
+    } else {
+      root.classList.remove("dark");
+    }
+    try {
+      localStorage.setItem("theme", t);
+    } catch {}
+  }
+
+  function toggleTheme() {
+    const next = theme === "dark" ? "light" : "dark";
+    setTheme(next);
+    applyTheme(next);
+  }
+
+  // Navbar smooth scrolling
+  function scrollToId(id: string) {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  // Data derived from resume
+  const projects = [
+    {
+      title: "E-Commerce Platform",
+      link: "https://github.com/Edwinsiby/eCommerce-web_development.git",
+      img: "/projects/ecom.jpg",
+    },
+    {
+      title: "Email Sender Service",
+      link: "https://github.com/Edwinsiby/E-MailSender",
+      img: "/projects/email.jpg",
+    },
+    {
+      title: "Live Streaming Platform",
+      link: "https://github.com/Edwinsiby/streaming-app.git",
+      img: "/projects/live.jpg",
+    },
+    {
+      title: "Realtime Chat App",
+      link: "https://github.com/Edwinsiby/Realtime-ChatApp.git",
+      img: "/projects/chat.jpg",
+    },
+    {
+      title: "Message Generator (Cron)",
+      link: "https://github.com/Edwinsiby/Message-Generator-GoCron.git",
+      img: "/projects/cron.jpg",
+    },
+    {
+      title: "Listmonk OpenSource",
+      link: "https://github.com/Edwinsiby/listmonk",
+      img: "/projects/listmonk.jpg",
+    }
+  ];
+
+  const skills = [
+    "Golang",
+    "Python",
+    "PostgreSQL",
+    "MongoDB",
+    "MySQL",
+    "Gin",
+    "Gorilla Mux",
+    "Microservices",
+    "gRPC",
+    "WebSocket",
+    "AWS (Lambda,S3,SQS,SES,RDS)",
+    "Docker",
+    "Kubernetes",
+    "CI/CD",
+    "Terraform",
+    "Nginx",
+  ];
+
+  // Stats: compute years of experience since Dec 2023 (as mentioned in resume)
+  function computeYears(sinceYear = 2023, sinceMonth = 12) {
+    const start = new Date(sinceYear, sinceMonth - 1, 1);
+    const now = new Date();
+    let years = now.getFullYear() - start.getFullYear();
+    const monthDiff = now.getMonth() - start.getMonth();
+    if (monthDiff < 0 || (monthDiff === 0 && now.getDate() < start.getDate())) years--;
+    return Math.max(0, years);
+  }
+  const yearsExperience = computeYears(2022, 12) || 2; // show at least 1
+
+  // small animation variants
+  const fadeUp = {
+    hidden: { opacity: 0, y: 18 },
+    visible: (i = 0) => ({ opacity: 1, y: 0, transition: { delay: i * 0.08 } }),
+  };
+
+  // For simple in-view detection, we can just use viewport prop on motion.
+  return (
+    <>
+      <Head>
+        <title>Edwin Siby — Backend Engineer (Golang)</title>
+        <meta name="description" content="Edwin Siby — Backend Developer specialized in Golang, microservices, and cloud infrastructure." />
+        <meta name="keywords" content="Golang, Backend, Microservices, PostgreSQL, AWS, Docker, CI/CD, Edwin Siby" />
+
+        {/* OpenGraph */}
+        <meta property="og:title" content="Edwin Siby — Backend Developer (Golang)" />
+        <meta property="og:description" content="Backend engineer building scalable APIs and microservices using Golang, AWS and PostgreSQL." />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="/profile.jpg" />
+        <meta property="og:url" content="https://your-site.example/" />
+
+        {/* Twitter card */}
+        <meta name="twitter:card" content="summary_large_image" />
+      </Head>
+
+      <div className="min-h-screen bg-white dark:bg-[#071226] text-slate-900 dark:text-slate-100 transition-colors">
+        {/* NAV */}
+        <nav className="fixed left-0 right-0 top-4 z-40">
+          <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => scrollToId("hero")}
+                className="text-lg font-semibold focus:outline-none"
+                aria-label="go home"
+              >
+                EdwinSiby
+              </button>
+              <div className="hidden md:flex items-center gap-3 ml-6">
+                <button onClick={() => scrollToId("about")} className="text-sm hover:text-teal-400">About</button>
+                <button onClick={() => scrollToId("skills")} className="text-sm hover:text-teal-400">Skills</button>
+                <button onClick={() => scrollToId("projects")} className="text-sm hover:text-teal-400">Projects</button>
+                <button onClick={() => scrollToId("experience")} className="text-sm hover:text-teal-400">Experience</button>
+                <button onClick={() => scrollToId("contact")} className="text-sm hover:text-teal-400">Contact</button>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <a className="hidden md:inline-block text-sm px-3 py-1 rounded-md bg-teal-500 text-black" href="/resume.pdf" download>
+                Download Resume
+              </a>
+
+              <button
+                onClick={toggleTheme}
+                className="p-2 rounded-md border border-slate-200 dark:border-slate-700"
+                aria-label="toggle theme"
+                title="Toggle theme"
+              >
+                {theme === "dark" ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+              </button>
+            </div>
+          </div>
+        </nav>
+
+        {/* HERO */}
+        <header id="hero" className="pt-28">
+          <div className="max-w-6xl mx-auto px-6">
+            <div className="grid md:grid-cols-2 gap-10 items-center">
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.2 }}
+                variants={fadeUp}
+                className="space-y-6"
+              >
+                <div className="text-teal-400 font-medium">Back-end Engineer</div>
+                <h1 className="text-3xl md:text-5xl font-bold leading-tight">
+                  Edwin Siby - Golang
+                </h1>
+
+                <p className="text-slate-500 dark:text-slate-300 max-w-xl">
+                  Building scalable APIs, microservices and cloud infrastructure using Golang, PostgreSQL, Docker and AWS.
+                  Strong background in performance optimization, cron systems, CLI tools and integration with third-party systems.
+                </p>
+
+                <div className="flex items-center gap-3 mt-4">
+                  <a href="mailto:edwinsibycareer@gmail.com" className="inline-flex items-center gap-2 bg-teal-500 text-black px-4 py-2 rounded-md font-medium">
+                    <Mail className="w-4 h-4" /> Email
+                  </a>
+                  <a href="https://github.com/Edwinsiby" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-4 py-2 border rounded-md">
+                    <Github className="w-4 h-4" /> GitHub
+                  </a>
+                  <a href="https://linkedin.com/in/edw1n-siby" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-4 py-2 border rounded-md">
+                    <Linkedin className="w-4 h-4" /> LinkedIn
+                  </a>
+                  <a href="https://linkedin.com/in/edw1n-siby" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-4 py-2 border rounded-md">
+                    <Camera className="w-4 h-4" /> Medium
+                  </a>
+                </div>
+
+                {/* Stats */}
+                <div className="mt-6 grid grid-cols-3 gap-4 max-w-md">
+                  <motion.div whileHover={{ y: -6 }} className="bg-slate-100 dark:bg-slate-800 p-3 rounded-lg text-center">
+                    <div className="text-2xl font-bold">{yearsExperience}+</div>
+                    <div className="text-sm text-slate-500 dark:text-slate-300">Years Exp</div>
+                  </motion.div>
+                  <motion.div whileHover={{ y: -6 }} className="bg-slate-100 dark:bg-slate-800 p-3 rounded-lg text-center">
+                    <div className="text-2xl font-bold">{projects.length+10}+</div>
+                    <div className="text-sm text-slate-500 dark:text-slate-300">Projects</div>
+                  </motion.div>
+                  <motion.div whileHover={{ y: -6 }} className="bg-slate-100 dark:bg-slate-800 p-3 rounded-lg text-center">
+                    <div className="text-2xl font-bold">{skills.length+10}+</div>
+                    <div className="text-sm text-slate-500 dark:text-slate-300">Techs</div>
+                  </motion.div>
+                </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, scale: 0.98 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5 }}
+                viewport={{ once: true }}
+                className="flex justify-center md:justify-end"
+              >
+                <div className="w-48 h-48 md:w-64 md:h-64 rounded-xl overflow-hidden border-4 border-teal-500 bg-white/5">
+                  {/* Use <Image/> if available; fallback to <img> */}
+                  <img
+                    src="/profile.jpg"
+                    alt="Edwin Siby"
+                    className="object-cover w-full h-full"
+                  />
+                </div>
+              </motion.div>
+            </div>
+          </div>
+        </header>
+
+        {/* ABOUT */}
+        <section id="about" className="pt-16 pb-10">
+          <div className="max-w-6xl mx-auto px-6">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              variants={fadeUp}
+            >
+              <h2 className="text-2xl font-semibold mb-3">About</h2>
+              <p className="text-slate-600 dark:text-slate-300 max-w-3xl">
+                Back-end Developer with extensive experience in building and maintaining back-end systems primarily using Golang.
+                Proven history of developing scalable APIs, integrating with other systems, and managing databases like PostgreSQL.
+                Experienced in microservices architecture, performance optimization, and AWS cloud services.
+              </p>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* SKILLS */}
+        <section id="skills" className="py-10 border-t border-slate-200 dark:border-slate-700">
+          <div className="max-w-6xl mx-auto px-6">
+            <motion.h3 initial={{opacity:0, y:8}} whileInView={{opacity:1,y:0}} viewport={{once:true}} className="text-xl font-semibold mb-4">Skills</motion.h3>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+              {skills.map((s, idx) => (
+                <motion.div key={s} whileHover={{ scale: 1.02 }} initial="hidden" whileInView="visible" variants={fadeUp} custom={idx} className="p-3 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-center">
+                  {s}
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* PROJECTS */}
+        <section id="projects" className="py-14">
+          <div className="max-w-6xl mx-auto px-6">
+            <h3 className="text-xl font-semibold mb-6">Projects</h3>
+
+            <div className="grid md:grid-cols-3 gap-6">
+              {projects.map((p, i) => (
+                <motion.a
+                  key={p.title}
+                  href={p.link}
+                  target="_blank"
+                  rel="noreferrer"
+                  whileHover={{ scale: 1.02 }}
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  className="block rounded-lg overflow-hidden border bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-700"
+                >
+                  <div className="h-40 bg-gradient-to-br from-slate-200 to-slate-300 dark:from-slate-800 dark:to-slate-700 flex items-center justify-center">
+                    {/* If you want real images for projects, put them in public/projects/*.jpg */}
+                    <img
+                      src={p.img}
+                      alt={p.title}
+                      className="object-cover w-full h-full"
+                      style={{ height: 160 }}
+                    />
+                  </div>
+
+                  <div className="p-4">
+                    <div className="text-teal-400 font-semibold">{p.title}</div>
+                    <div className="mt-2 text-sm text-slate-600 dark:text-slate-300">View on GitHub</div>
+                  </div>
+                </motion.a>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* EXPERIENCE */}
+        <section id="experience" className="py-12 border-t border-slate-200 dark:border-slate-700">
+          <div className="max-w-6xl mx-auto px-6">
+            <h3 className="text-xl font-semibold mb-6">Experience</h3>
+
+            <motion.div initial={{opacity:0,y:12}} whileInView={{opacity:1,y:0}} viewport={{once:true}} className="space-y-8">
+              <div className="p-4 bg-slate-100 dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <div className="font-semibold">Backend Developer — Trademarkia</div>
+                    <div className="text-sm text-slate-500 dark:text-slate-300">Dec 2023 – Present • Chennai, India</div>
+                  </div>
+                </div>
+                <ul className="mt-3 text-slate-700 dark:text-slate-300 list-disc ml-5">
+                  <li>Designed & optimized scalable systems with Golang and AWS.</li>
+                  <li>Built microservices, CLI tools and cron systems (20% global search efficiency improvement).</li>
+                  <li>Managed AWS: Lambda, S3, SES, SQS, CloudFront, RDS and integrations.</li>
+                </ul>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* CONTACT */}
+        <section id="contact" className="py-12 border-t border-slate-200 dark:border-slate-700">
+          <div className="max-w-6xl mx-auto px-6 text-center">
+            <h3 className="text-xl font-semibold mb-4">Let's Connect</h3>
+            <p className="text-slate-600 dark:text-slate-300 max-w-2xl mx-auto mb-6">
+              Open to collaboration, full-time roles, and backend consulting. I usually reply within 10 hours.
+            </p>
+
+            <div className="flex items-center justify-center gap-3">
+              <a className="inline-flex items-center gap-2 bg-teal-500 text-black px-4 py-2 rounded-md font-medium" href="mailto:edwinsibycareer@gmail.com">
+                <Mail className="w-4 h-4" /> Email
+              </a>
+
+              <a className="inline-flex items-center gap-2 px-4 py-2 border rounded-md" href="/resume.pdf" download>
+                Download Resume
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <footer className="py-8 text-center text-slate-500 dark:text-slate-400 border-t border-slate-200 dark:border-slate-700">
+          © {new Date().getFullYear()} Edwin Siby — Backend Developer.
+        </footer>
+      </div>
+    </>
+  );
+}
