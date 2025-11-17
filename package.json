@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "fast-xml-parser": "^4.0.12",
-    "framer-motion": "^10.12.16",
+    "framer-motion": "^12.23.24",
     "lucide-react": "^0.268.0",
     "next": "latest",
     "next-themes": "^0.2.1",
