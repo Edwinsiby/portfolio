@@ -61,6 +61,24 @@ export default function Page() {
   // Data derived from resume
   const projects = [
     {
+      title: "Legal Tech Software",
+      desc: "Built and scaled legal-tech backend systems powering a major US intellectual property law firm, integrating directly with USPTO",
+      link: "https://github.com/LegalForceLawRAPC",
+      img:  "/projects/legal.jpg",
+    },
+    {
+      title: "CLI Schedulers & Cron Automation",
+      desc: "Designed and built a high-reliability CLI-based scheduling software and servers",
+      link: "https://github.com/Edwinsiby/eCommerce-web_development.git",
+      img:  "/projects/cli.jpg",
+    },
+    {
+      title: "AD Bidding system",
+      desc: "Engineered a real-time ad bidding engine capable of processing thousands of bid requests",
+      link: "https://github.com/Edwinsiby/Ascendeum-auction_simulator",
+      img:  "/projects/ad.jpg",
+    },
+    {
       title: "E-Commerce Platform",
       link: "https://github.com/Edwinsiby/eCommerce-web_development.git",
       img: "/projects/ecom.jpg",
@@ -104,9 +122,9 @@ export default function Page() {
     "gRPC",
     "WebSocket",
     "AWS (Lambda,S3,SQS,SES,RDS)",
-    "Docker",
-    "Kubernetes",
-    "CI/CD",
+    "Docker/Kub8",
+    "CI/CD,CRON",
+    "CLI tools",
     "Terraform",
     "Nginx",
   ];
@@ -339,14 +357,20 @@ export default function Page() {
               <div className="p-4 bg-slate-100 dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700">
                 <div className="flex items-center justify-between">
                   <div>
-                    <div className="font-semibold">Backend Developer — Trademarkia</div>
+                    <div className="font-semibold">Backend Engineer — Trademarkia (Legal-Tech | US IP Systems | Scalable Search & Automation)</div>
                     <div className="text-sm text-slate-500 dark:text-slate-300">Dec 2023 – Present • Chennai, India</div>
                   </div>
                 </div>
                 <ul className="mt-3 text-slate-700 dark:text-slate-300 list-disc ml-5">
-                  <li>Designed & optimized scalable systems with Golang and AWS.</li>
-                  <li>Built microservices, CLI tools and cron systems (20% global search efficiency improvement).</li>
-                  <li>Managed AWS: Lambda, S3, SES, SQS, CloudFront, RDS and integrations.</li>
+                <li>Built and scaled legal-tech backend systems powering a major US intellectual property law firm, integrating directly with USPTO, WIPO, and global IP data sources.</li>
+                  <li>Designed high-performance Golang microservices, cron schedulers, scrapers, and data pipelines to automate trademark search, monitoring, and notification workflows.</li>
+                  <li>Implemented ElasticSearch-based indexing and search pipelines, improving global trademark discovery speed and query relevance across millions of IP records.</li>
+                  <li>Developed a fully automated scraping and ingestion framework for USPTO data, reducing manual legal work by 80% and enabling near real-time updates.</li>
+                  <li>Re-architected India → Global IP integration system, reducing rollout time for new legal services from 1 day to 10 minutes through automation and clean API design.</li>
+                  <li>Built an in-house email intelligence and revenue tracking platform, eliminating third-party tools and increasing revenue by 25% while cutting recurring costs to zero.</li>
+                  <li>Created fault-tolerant schedulers and distributed cron workers for continuous data sync, document parsing, and automated legal-action triggers.</li>
+                  <li>Improved system reliability and backend performance by 15% through PostgreSQL optimization, caching strategies, and redesigned concurrency patterns.</li>
+                  <li>Mentored backend developers and led infrastructure decisions across AWS (Lambda, S3, RDS, SES, SQS, CloudFront), CI/CD pipelines, and microservice deployments.</li>
                 </ul>
               </div>
             </motion.div>
