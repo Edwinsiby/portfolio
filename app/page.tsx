@@ -435,23 +435,58 @@ export default function Page() {
 
         {/* CONTACT */}
         <section id="contact" className="py-12 border-t border-slate-200 dark:border-slate-700">
-          <div className="max-w-6xl mx-auto px-6 text-center">
-            <h3 className="text-xl font-semibold mb-4">Let's Connect</h3>
-            <p className="text-slate-600 dark:text-slate-300 max-w-2xl mx-auto mb-6">
-              Open to collaboration, full-time roles, and backend consulting. I usually reply within 10 hours.
-            </p>
+  <div className="max-w-6xl mx-auto px-6 text-center">
+    <h3 className="text-xl font-semibold mb-4">Let's Connect</h3>
 
-            <div className="flex items-center justify-center gap-3">
-              <a className="inline-flex items-center gap-2 bg-teal-500 text-black px-4 py-2 rounded-md font-medium" href="mailto:edwinsibycareer@gmail.com">
-                <Mail className="w-4 h-4" /> Email
-              </a>
+    <p className="text-slate-600 dark:text-slate-300 max-w-2xl mx-auto mb-2">
+      Open to full-time roles, backend consulting, and startup collaborations. I usually reply the same day.
+    </p>
 
-              <a className="inline-flex items-center gap-2 px-4 py-2 border rounded-md" href="/resume.pdf" download>
-                Download Resume
-              </a>
-            </div>
-          </div>
-        </section>
+    <p className="text-sm text-slate-500 dark:text-slate-400 max-w-3xl mx-auto mb-6">
+      Worked across <strong>Bangalore</strong>, <strong>Chennai</strong>, and <strong>Kochi</strong>.  
+      Available for <strong>remote</strong>, <strong>hybrid</strong>, and <strong>international opportunities</strong>.  
+      Experience consulting with startups and building systems from zero to scale.
+    </p>
+
+    <div className="flex flex-wrap items-center justify-center gap-3">
+      {/* Email */}
+      <a
+        className="inline-flex items-center gap-2 bg-teal-500 text-black px-4 py-2 rounded-md font-medium hover:bg-teal-600 transition"
+        href="mailto:edwinsibycareer@gmail.com"
+      >
+        <Mail className="w-4 h-4" /> Email
+      </a>
+
+      {/* WhatsApp */}
+      <a
+        className="inline-flex items-center gap-2 bg-green-500 text-black px-4 py-2 rounded-md font-medium hover:bg-green-600 transition"
+        href="https://wa.me/919048402133"
+        target="_blank"
+        rel="noreferrer"
+      >
+        WhatsApp
+      </a>
+
+      {/* Phone */}
+      <a
+        className="inline-flex items-center gap-2 border px-4 py-2 rounded-md hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+        href="tel:+916360698537"
+      >
+        Call
+      </a>
+
+      {/* Resume */}
+      <a
+        className="inline-flex items-center gap-2 border px-4 py-2 rounded-md hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+        href="/resume.pdf"
+        download
+      >
+        Download Resume
+      </a>
+    </div>
+  </div>
+</section>
+
 
         <footer className="py-8 text-center text-slate-500 dark:text-slate-400 border-t border-slate-200 dark:border-slate-700">
           © {new Date().getFullYear()} Edwin Siby — Backend Developer.
