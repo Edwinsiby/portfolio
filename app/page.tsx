@@ -330,7 +330,7 @@ export default function Page() {
 
       <motion.div
         animate={{ rotateY: hovered === i ? 180 : 0 }}
-        transition={{ duration: 0.05, ease: "easeInOut" }}
+        transition={{ duration: 0.03}}
         className="w-full h-full relative preserve-3d"
       >
 
