@@ -156,7 +156,18 @@ export default function Page() {
     visible: (i = 0) => ({ opacity: 1, y: 0, transition: { delay: i * 0.08 } }),
   };
   const [hovered, setHovered] = useState<number | null>(null)
-
+  const handleHover = (e: React.MouseEvent<HTMLDivElement>, index: number) => {
+    const rect = e.currentTarget.getBoundingClientRect()
+    const y = e.clientY - rect.top
+    const triggerHeight = rect.height * 0.3
+  
+    if (y <= triggerHeight) {
+      setHovered(index)
+    } else {
+      setHovered(null)
+    }
+  }
+  
 
   // For simple in-view detection, we can just use viewport prop on motion.
   return (
@@ -326,61 +337,68 @@ export default function Page() {
         <section id="projects" className="py-14">
         <div className="grid md:grid-cols-3 gap-6">
   {projects.map((p, i) => (
-    <div key={p.title} className="relative h-[260px] perspective">
+    <div   key={p.title}
+    className="relative h-[260px] rounded-lg overflow-hidden border bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-700"
+    onMouseMove={(e) => handleHover(e, i)}
+    onMouseLeave={() => setHovered(null)}>
 
-      <motion.div
-        animate={{ rotateY: hovered === i ? 180 : 0 }}
-        transition={{ duration: 0.03}}
-        className="w-full h-full relative preserve-3d"
-      >
+<div className="relative w-full h-full">
 
-        {/* FRONT */}
-        <a
-          href={p.link}
-          target="_blank"
-          rel="noreferrer"
-          className="absolute w-full h-full backface-hidden rounded-lg overflow-hidden border bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-700"
-        >
-          <div
-            className="h-40 bg-gradient-to-br from-slate-200 to-slate-300 dark:from-slate-800 dark:to-slate-700 cursor-pointer"
-            onMouseEnter={() => setHovered(i)}
-            onMouseLeave={() => setHovered(null)}
-          >
-            <img
-              src={p.img}
-              alt={p.title}
-              className="object-cover w-full h-full"
-            />
-          </div>
-
-          <div className="p-4">
-            <div className="text-teal-400 font-semibold">{p.title}</div>
-            <div className="mt-2 text-sm text-slate-600 dark:text-slate-300">
-            <a
-  href={p.link}
-  target="_blank"
-  rel="noreferrer"
-  className="mt-2 inline-block text-sm text-white-500 hover:text-white-600 transition font-medium"
+  {/* IMAGE LAYER */}
+  <motion.div
+  animate={{ opacity: hovered === i ? 0 : 1 }}
+  transition={{ duration: 0.35 }}
+  className={`absolute inset-0 ${
+    hovered === i ? "pointer-events-none" : "pointer-events-auto"
+  }`}
 >
-  View on GitHub
-</a>
 
-            </div>
-          </div>
-        </a>
-
-        {/* BACK */}
-        <div
-          className="absolute w-full h-full rotate-y-180 backface-hidden rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 flex flex-col justify-center"
-          onMouseEnter={() => setHovered(i)}
-          onMouseLeave={() => setHovered(null)}
-        >
-          <h3 className="text-lg font-semibold mb-3">{p.title}</h3>
-          <p className="text-sm leading-relaxed">{p.desc}</p>
-        </div>
-
-      </motion.div>
+    <div
+      className="h-40 cursor-pointer"
+      onMouseEnter={() => setHovered(i)}
+      onMouseLeave={() => setHovered(null)}
+    >
+      <img
+        src={p.img}
+        alt={p.title}
+        className="object-cover w-full h-full"
+      />
     </div>
+
+    <div className="p-4">
+      <div className="text-teal-400 font-semibold">{p.title}</div>
+      <a
+        href={p.link}
+        target="_blank"
+        rel="noreferrer"
+        className="mt-2 inline-block text-sm text-white-500 hover:text-white-600 transition font-medium"
+      >
+        View on GitHub
+      </a>
+    </div>
+  </motion.div>
+
+  {/* DESCRIPTION LAYER */}
+  <motion.div
+  animate={{
+    opacity: hovered === i ? 1 : 0,
+    y: hovered === i ? 0 : 20,
+  }}
+  transition={{ duration: 0.35 }}
+  className={`absolute inset-0 p-6 bg-slate-100 dark:bg-slate-800 ${
+    hovered === i ? "pointer-events-auto" : "pointer-events-none"
+  }`}
+>
+
+    <h3 className="text-lg font-semibold mb-3">{p.title}</h3>
+    <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
+      {p.desc}
+    </p>
+  </motion.div>
+
+</div>
+    </div>
+
   ))}
 </div>
 
