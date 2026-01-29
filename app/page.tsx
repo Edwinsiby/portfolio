@@ -80,31 +80,37 @@ export default function Page() {
     },
     {
       title: "E-Commerce Platform",
+      desc: "Microservice based ecommerce servers enabled smooth, fast and secured api calls",
       link: "https://github.com/Edwinsiby/eCommerce-web_development.git",
       img: "/projects/ecom.jpg",
     },
     {
       title: "Email Sender Service",
+      desc: "SAAS level email project which replaces third party services for notification and tracking system",
       link: "https://github.com/Edwinsiby/E-MailSender",
       img: "/projects/email.jpg",
     },
     {
       title: "Live Streaming Platform",
+      desc: "Comprehensive platform with multi-purpose community level media sharing and engaging users",
       link: "https://github.com/Edwinsiby/streaming-app.git",
       img: "/projects/live.jpg",
     },
     {
       title: "Realtime Chat App",
+      desc: "Websocket based group and in person chat system",
       link: "https://github.com/Edwinsiby/Realtime-ChatApp.git",
       img: "/projects/chat.jpg",
     },
     {
       title: "Message Generator (Cron)",
+      desc: "Cron based massage system for time consuming jobs",
       link: "https://github.com/Edwinsiby/Message-Generator-GoCron.git",
       img: "/projects/cron.jpg",
     },
     {
       title: "Listmonk OpenSource",
+      desc: "Contribution and Adaption of open-source projects into real life business growth",
       link: "https://github.com/Edwinsiby/listmonk",
       img: "/projects/listmonk.jpg",
     }
@@ -320,35 +326,48 @@ export default function Page() {
             <h3 className="text-xl font-semibold mb-6">Projects</h3>
 
             <div className="grid md:grid-cols-3 gap-6">
-              {projects.map((p, i) => (
-                <motion.a
-                  key={p.title}
-                  href={p.link}
-                  target="_blank"
-                  rel="noreferrer"
-                  whileHover={{ scale: 1.02 }}
-                  initial={{ opacity: 0, y: 12 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  className="block rounded-lg overflow-hidden border bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-700"
-                >
-                  <div className="h-40 bg-gradient-to-br from-slate-200 to-slate-300 dark:from-slate-800 dark:to-slate-700 flex items-center justify-center">
-                    {/* If you want real images for projects, put them in public/projects/*.jpg */}
-                    <img
-                      src={p.img}
-                      alt={p.title}
-                      className="object-cover w-full h-full"
-                      style={{ height: 160 }}
-                    />
-                  </div>
+  {projects.map((p) => (
+    <div key={p.title} className="relative h-[260px] perspective">
+      <motion.div
+        whileHover={{ rotateY: 180 }}
+        transition={{ duration: 0.2 }}
+        className="w-full h-full relative preserve-3d"
+      >
 
-                  <div className="p-4">
-                    <div className="text-teal-400 font-semibold">{p.title}</div>
-                    <div className="mt-2 text-sm text-slate-600 dark:text-slate-300">View on GitHub</div>
-                  </div>
-                </motion.a>
-              ))}
+        {/* FRONT */}
+        <a
+          href={p.link}
+          target="_blank"
+          rel="noreferrer"
+          className="absolute w-full h-full backface-hidden rounded-lg overflow-hidden border bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-700"
+        >
+          <div className="h-40 bg-gradient-to-br from-slate-200 to-slate-300 dark:from-slate-800 dark:to-slate-700">
+            <img
+              src={p.img}
+              alt={p.title}
+              className="object-cover w-full h-full"
+            />
+          </div>
+
+          <div className="p-4">
+            <div className="text-teal-400 font-semibold">{p.title}</div>
+            <div className="mt-2 text-sm text-slate-600 dark:text-slate-300">
+              View on GitHub
             </div>
+          </div>
+        </a>
+
+        {/* BACK */}
+        <div className="absolute w-full h-full rotate-y-180 backface-hidden rounded-lg bg-teal-500 text-white p-6 flex flex-col justify-center">
+          <h3 className="text-lg font-semibold mb-3">{p.title}</h3>
+          <p className="text-sm leading-relaxed">{p.desc}</p>
+        </div>
+
+      </motion.div>
+    </div>
+  ))}
+</div>
+
           </div>
         </section>
 
