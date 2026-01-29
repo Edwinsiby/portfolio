@@ -115,18 +115,22 @@ export default function Page() {
     "Python",
     "PostgreSQL",
     "MongoDB",
-    "MySQL",
-    "Gin",
-    "Gorilla Mux",
+    "Gin/Echo/Mux",
     "Microservices",
     "gRPC",
     "WebSocket",
+    "Rabbit MQ",
+    "Redis",
     "AWS (Lambda,S3,SQS,SES,RDS)",
     "Docker/Kub8",
     "CI/CD,CRON",
-    "CLI tools",
+    "CLI/Tmux",
     "Terraform",
     "Nginx",
+    "Twilio/Mailgun",
+    "Worker Pool",
+    "Concurrency",
+    "Mac/Linux",
   ];
 
   // Stats: compute years of experience since Dec 2023 (as mentioned in resume)
@@ -234,7 +238,7 @@ export default function Page() {
                   <a href="https://linkedin.com/in/edw1n-siby" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-4 py-2 border rounded-md">
                     <Linkedin className="w-4 h-4" /> LinkedIn
                   </a>
-                  <a href="https://linkedin.com/in/edw1n-siby" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-4 py-2 border rounded-md">
+                  <a href="https://edwinsiby.medium.com/" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-4 py-2 border rounded-md">
                     <Camera className="w-4 h-4" /> Medium
                   </a>
                 </div>
