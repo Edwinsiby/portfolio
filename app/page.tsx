@@ -155,6 +155,8 @@ export default function Page() {
     hidden: { opacity: 0, y: 18 },
     visible: (i = 0) => ({ opacity: 1, y: 0, transition: { delay: i * 0.08 } }),
   };
+  const [hovered, setHovered] = useState<number | null>(null)
+
 
   // For simple in-view detection, we can just use viewport prop on motion.
   return (
@@ -322,15 +324,13 @@ export default function Page() {
 
         {/* PROJECTS */}
         <section id="projects" className="py-14">
-          <div className="max-w-6xl mx-auto px-6">
-            <h3 className="text-xl font-semibold mb-6">Projects</h3>
-
-            <div className="grid md:grid-cols-3 gap-6">
-  {projects.map((p) => (
+        <div className="grid md:grid-cols-3 gap-6">
+  {projects.map((p, i) => (
     <div key={p.title} className="relative h-[260px] perspective">
+
       <motion.div
-        whileHover={{ rotateY: 180 }}
-        transition={{ duration: 0.2 }}
+        animate={{ rotateY: hovered === i ? 180 : 0 }}
+        transition={{ duration: 0.5, ease: "easeInOut" }}
         className="w-full h-full relative preserve-3d"
       >
 
@@ -341,7 +341,11 @@ export default function Page() {
           rel="noreferrer"
           className="absolute w-full h-full backface-hidden rounded-lg overflow-hidden border bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-700"
         >
-          <div className="h-40 bg-gradient-to-br from-slate-200 to-slate-300 dark:from-slate-800 dark:to-slate-700">
+          <div
+            className="h-40 bg-gradient-to-br from-slate-200 to-slate-300 dark:from-slate-800 dark:to-slate-700 cursor-pointer"
+            onMouseEnter={() => setHovered(i)}
+            onMouseLeave={() => setHovered(null)}
+          >
             <img
               src={p.img}
               alt={p.title}
@@ -352,13 +356,25 @@ export default function Page() {
           <div className="p-4">
             <div className="text-teal-400 font-semibold">{p.title}</div>
             <div className="mt-2 text-sm text-slate-600 dark:text-slate-300">
-              View on GitHub
+            <a
+  href={p.link}
+  target="_blank"
+  rel="noreferrer"
+  className="mt-2 inline-block text-sm text-white-500 hover:text-white-600 transition font-medium"
+>
+  View on GitHub
+</a>
+
             </div>
           </div>
         </a>
 
         {/* BACK */}
-        <div className="absolute w-full h-full rotate-y-180 backface-hidden rounded-lg bg-teal-500 text-white p-6 flex flex-col justify-center">
+        <div
+          className="absolute w-full h-full rotate-y-180 backface-hidden rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-6 flex flex-col justify-center"
+          onMouseEnter={() => setHovered(i)}
+          onMouseLeave={() => setHovered(null)}
+        >
           <h3 className="text-lg font-semibold mb-3">{p.title}</h3>
           <p className="text-sm leading-relaxed">{p.desc}</p>
         </div>
@@ -368,7 +384,6 @@ export default function Page() {
   ))}
 </div>
 
-          </div>
         </section>
 
         {/* EXPERIENCE */}
