@@ -226,28 +226,32 @@ export default function Page() {
           </div>
         </nav>
 
-        {/* HERO */}
-        <header id="hero" className="pt-28">
-          <div className="max-w-6xl mx-auto px-6">
-            <div className="grid md:grid-cols-2 gap-10 items-center">
-              <motion.div
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.2 }}
-                variants={fadeUp}
-                className="space-y-6"
-              >
-                <div className="text-teal-400 font-medium">Back-end Engineer</div>
-                <h1 className="text-3xl md:text-5xl font-bold leading-tight">
-                  Edwin Siby - Golang
-                </h1>
+ 
 
-                <p className="text-slate-500 dark:text-slate-300 max-w-xl">
-                 Building scalable backend systems using Golang, PostgreSQL, Docker, and AWS, with strong experience in performance optimization, background jobs, CLI tools, and third-party integrations.
-                </p>
+        <section id="hero" className="pt-28 overflow-hidden">
+  <div className="max-w-6xl mx-auto px-4 sm:px-6">
+    <div className="grid md:grid-cols-2 gap-10 items-center">
 
-                <div className="flex items-center gap-3 mt-4">
-                  <a href="mailto:edwinsibycareer@gmail.com" className="inline-flex items-center gap-2 bg-teal-500 text-black px-4 py-2 rounded-md font-medium">
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={fadeUp}
+        className="space-y-6"
+      >
+        <h1 className="text-3xl md:text-5xl font-bold leading-tight break-words">
+          Edwin Siby
+        </h1>
+
+        <div className="text-teal-400 font-medium">Backend Engineer (Golang)| AWS | Distributed Systems | Microservices</div>
+
+        <p className="text-slate-500 dark:text-slate-300 max-w-xl break-words">
+          Building scalable backend systems using Golang, PostgreSQL, Docker, and AWS, with strong experience in performance optimization, background jobs, CLI tools, and third-party integrations.
+        </p>
+
+        {/* CTAs */}
+        <div className="flex flex-wrap gap-3 mt-4">
+        <a href="mailto:edwinsibycareer@gmail.com" className="inline-flex items-center gap-2 bg-teal-500 text-black px-4 py-2 rounded-md font-medium">
                     <Mail className="w-4 h-4" /> Email
                   </a>
                   <a href="https://github.com/Edwinsiby" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-4 py-2 border rounded-md">
@@ -259,11 +263,11 @@ export default function Page() {
                   <a href="https://edwinsiby.medium.com/" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-4 py-2 border rounded-md">
                     <Camera className="w-4 h-4" /> Medium
                   </a>
-                </div>
+        </div>
 
-                {/* Stats */}
-                <div className="mt-6 grid grid-cols-3 gap-4 max-w-md">
-                  <motion.div whileHover={{ y: -6 }} className="bg-slate-100 dark:bg-slate-800 p-3 rounded-lg text-center">
+        {/* Stats */}
+        <div className="mt-6 grid grid-cols-3 gap-4 max-w-md">
+        <motion.div whileHover={{ y: -6 }} className="bg-slate-100 dark:bg-slate-800 p-3 rounded-lg text-center">
                     <div className="text-2xl font-bold">{yearsExperience}+</div>
                     <div className="text-sm text-slate-500 dark:text-slate-300">Years Exp</div>
                   </motion.div>
@@ -275,28 +279,20 @@ export default function Page() {
                     <div className="text-2xl font-bold">{skills.length+10}+</div>
                     <div className="text-sm text-slate-500 dark:text-slate-300">Techs</div>
                   </motion.div>
-                </div>
-              </motion.div>
+        </div>
+      </motion.div>
 
-              <motion.div
-                initial={{ opacity: 0, scale: 0.98 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5 }}
-                viewport={{ once: true }}
-                className="flex justify-center md:justify-end"
-              >
-                <div className="w-48 h-48 md:w-64 md:h-64 rounded-xl overflow-hidden border-4 border-teal-500 bg-white/5">
-                  {/* Use <Image/> if available; fallback to <img> */}
-                  <img
-                    src="/profile.jpg"
-                    alt="Edwin Siby"
-                    className="object-cover w-full h-full"
-                  />
-                </div>
-              </motion.div>
-            </div>
-          </div>
-        </header>
+      {/* Image */}
+      <motion.div className="flex justify-center md:justify-end">
+        <div className="w-48 h-48 md:w-64 md:h-64 rounded-xl overflow-hidden border-4 border-teal-500">
+          <img src="/profile.jpg" className="w-full h-full object-cover" />
+        </div>
+      </motion.div>
+
+    </div>
+  </div>
+</section>
+
 
         {/* ABOUT */}
         <section id="about" className="pt-16 pb-10">
