@@ -243,8 +243,7 @@ export default function Page() {
                 </h1>
 
                 <p className="text-slate-500 dark:text-slate-300 max-w-xl">
-                  Building scalable APIs, microservices and cloud infrastructure using Golang, PostgreSQL, Docker and AWS.
-                  Strong background in performance optimization, cron systems, CLI tools and integration with third-party systems.
+                 Building scalable backend systems using Golang, PostgreSQL, Docker, and AWS, with strong experience in performance optimization, background jobs, CLI tools, and third-party integrations.
                 </p>
 
                 <div className="flex items-center gap-3 mt-4">
@@ -310,9 +309,7 @@ export default function Page() {
             >
               <h2 className="text-2xl font-semibold mb-3">About</h2>
               <p className="text-slate-600 dark:text-slate-300 max-w-3xl">
-                Back-end Developer with extensive experience in building and maintaining back-end systems primarily using Golang.
-                Proven history of developing scalable APIs, integrating with other systems, and managing databases like PostgreSQL.
-                Experienced in microservices architecture, performance optimization, and AWS cloud services.
+               Backend Engineer with 2+ years of relevant experience building high-scale, revenue-generating SaaS platforms using Golang, AWS, PostgreSQL and Microservices architecture. Specialized in email automation systems, distributed background jobs, API platforms, and high-reliability data pipelines.Proven record of reducing cloud costs, improving performance, and building systems that directly drive business revenue.
               </p>
             </motion.div>
           </div>
